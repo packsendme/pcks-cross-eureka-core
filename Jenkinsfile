@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NAME_CONTAINER = "packsendme-support-eureka"
-        NAME_IMAGE = "microservice-sup-eureka:1"
+        NAME_CONTAINER = "psm-config-eureka"
+        NAME_IMAGE = "microservice-config-eureka:1"
         ID_CONTAINER = null 
         PORT_CONTAINER = "9091:9091"
     }
