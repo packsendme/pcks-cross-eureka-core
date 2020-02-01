@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NAME_CONTAINER = "psm-config-eureka"
-        NAME_IMAGE = "microservice-config-eureka:1"
+        NAME_CONTAINER = "eureka-microservice-psm"
+        NAME_IMAGE = "eureka-image-psm:1"
         ID_CONTAINER = null 
         PORT_CONTAINER = "9091:9091"
     }
@@ -25,7 +25,7 @@ pipeline {
         stage("Docker Delopy - Check Container") {
             steps {
                 script {
-                    ID_CONTAINER = sh(script: "docker ps -f name=${NAME_CONTAINER} --format {{.ID}}", returnStdout: true).trim()
+                    ID_CONTAINER = sh(script: "docker ps -a -f name=${NAME_CONTAINER} --format {{.ID}}", returnStdout: true).trim()
                     echo "Deploy PR #${ID_CONTAINER}"
                 }
             }
