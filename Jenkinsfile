@@ -2,18 +2,18 @@ pipeline {
     agent any
 
     environment {
-        NAME_CONTAINER = "eureka-microservice-psm"
-        NAME_IMAGE = "eureka-image-psm:1"
-        ID_CONTAINER = null 
+        NAME_CONTAINER = "pcks-cross-eureka-core"
+        NAME_IMAGE = "pcks-cross-eureka-img:1"
+        ID_CONTAINER = null
         PORT_CONTAINER = "9091:9091"
     }
 
     stages {
-        
+
         stage('Git Checkout Repositorio') {
             steps {
                 git branch: 'develop',
-                url: 'https://github.com/packsendme/packsendme-eureka-server.git'
+                url: 'https://github.com/packsendme/pcks-cross-eureka-core.git'
             }
         }
         stage('Java Build') {
@@ -21,7 +21,7 @@ pipeline {
                 sh 'mvn clean install -DskipTests'
             }
         }
-    
+
         stage("Docker Delopy - Check Container") {
             steps {
                 script {
@@ -30,9 +30,9 @@ pipeline {
                 }
             }
         }
-        
+
         stage("Docker Delopy  - Stop Container") {
-           when { 
+           when {
                allOf {
                         expression { ID_CONTAINER != null }
                         expression { ID_CONTAINER != "" }
@@ -54,6 +54,6 @@ pipeline {
                 }
             }
         }
-        
+
     }
 }
